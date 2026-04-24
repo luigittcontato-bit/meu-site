@@ -11,7 +11,7 @@
 <meta content="website" property="og:type"/>
 <meta content="https://luigisites.com.br/og-image.jpg" property="og:image"/>
 <meta content="https://luigisites.com.br/" property="og:url"/>
-<meta content="#080808" name="theme-color"/>
+<meta content="#060608" name="theme-color"/>
 <meta content="index, follow" name="robots"/>
 <link href="https://luigisites.com.br/" rel="canonical"/>
 <meta content="summary_large_image" name="twitter:card"/>
@@ -27,31 +27,49 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #080808;
-  --bg2: #0f0f0f;
-  --bg3: #141414;
-  --bg4: #1a1a1a;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.13);
-  --border3: rgba(255,255,255,0.2);
-  --accent: #1d4ed8;
-  --accent2: #2563eb;
-  --accent-light: #3b82f6;
-  --accent-bright: #60a5fa;
-  --accent-dim: rgba(37,99,235,0.12);
-  --accent-glow: rgba(59,130,246,0.25);
-  --green: #22c55e;
-  --green-dim: rgba(34,197,94,0.1);
-  --red: #f87171;
-  --text: #f4f4f4;
-  --text2: #8a8a8a;
-  --text3: #4a4a4a;
+  /* ── Paleta ── */
+  --bg:   #060608;
+  --bg2:  #0a0a0d;
+  --bg3:  #0f0f13;
+  --bg4:  #16161c;
+
+  /* ── Bordas ── */
+  --border:  rgba(255,255,255,0.05);
+  --border2: rgba(255,255,255,0.09);
+  --border3: rgba(255,255,255,0.15);
+
+  /* ── Acento único: azul elétrico frio ── */
+  --accent:        #0066ff;
+  --accent2:       #0052cc;
+  --accent-light:  #3385ff;
+  --accent-bright: #4d9fff;
+  --accent-dim:    rgba(0,102,255,0.08);
+  --accent-glow:   rgba(0,102,255,0.18);
+
+  /* ── Status ── */
+  --green:     #00c853;
+  --green-dim: rgba(0,200,83,0.07);
+  --red:       #ff4444;
+
+  /* ── Texto ── */
+  --text:  #f2f2f4;
+  --text2: #7a7a8a;
+  --text3: #2e2e38;
+
+  /* ── Tipografia ── */
   --font-display: 'Outfit', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
-  --radius: 14px;
-  --radius-sm: 8px;
-  --radius-lg: 20px;
-  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+  --font-mono:    'Courier New', monospace;
+
+  /* ── Forma — angular, não arredondado ── */
+  --radius:    6px;
+  --radius-sm: 4px;
+  --radius-lg: 8px;
+
+  /* ── Motion ── */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition:  all 0.2s var(--ease-out);
 }
 
 html { scroll-behavior: smooth; }
@@ -61,8 +79,9 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
@@ -78,20 +97,20 @@ body::before {
 }
 
 /* ─── SCROLLBAR ─── */
-::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 0; }
 
 /* ─── SCROLL PROGRESS ─── */
 #scroll-progress {
   position: fixed;
   top: 0; left: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent2), var(--accent-bright));
+  background: var(--accent);
   z-index: 9999;
   width: 0%;
   transition: width 0.1s linear;
-  box-shadow: 0 0 8px rgba(59,130,246,0.6);
+  box-shadow: 0 0 8px rgba(0,102,255,0.5);
 }
 
 /* ─── FOCUS ACCESSIBLE ─── */
@@ -145,26 +164,21 @@ header.scrolled {
 
 .logo {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 17px;
+  font-weight: 900;
+  font-size: 16px;
   color: var(--text);
   text-decoration: none;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.5px;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
 }
 
-.logo-dot { 
-  width: 7px; height: 7px; 
-  background: var(--accent-light); 
-  border-radius: 50%;
-  animation: pulse-dot 2s infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent-glow); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 6px transparent; }
+.logo-dot {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 0;
+  flex-shrink: 0;
 }
 
 nav {
@@ -204,78 +218,75 @@ nav a.active::after { transform: scaleX(1); }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
+  gap: 9px;
+  padding: 12px 24px;
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
   transition: var(--transition);
   border: none;
   position: relative;
   overflow: hidden;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .btn-whatsapp {
-  background: #25D366;
+  background: var(--green);
   color: #fff;
-  font-weight: 600;
-  letter-spacing: 0.1px;
+  box-shadow: none;
 }
 
-.btn-whatsapp::after {
+.btn-whatsapp::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0);
-  transition: background 0.2s;
+  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .btn-whatsapp:hover {
-  background: #20bd5a;
+  background: #00b548;
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(37,211,102,0.5);
+  box-shadow: 0 8px 28px rgba(0,200,83,0.35);
 }
 
 .btn-whatsapp:active {
-  transform: translateY(0px);
-  box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+  transform: translateY(0);
+  box-shadow: none;
 }
 
-.btn-whatsapp:hover::after { background: rgba(255,255,255,0.06); }
-
-.btn-whatsapp svg { width: 17px; height: 17px; flex-shrink: 0; }
+.btn-whatsapp svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 .btn-ghost {
   background: transparent;
   color: var(--text2);
   border: 1px solid var(--border2);
-  font-size: 14px;
+  font-size: 13px;
 }
 
-.btn-ghost:hover { 
-  color: var(--text); 
+.btn-ghost:hover {
+  color: var(--text);
   border-color: var(--border3);
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.03);
   transform: translateY(-1px);
 }
 
-.btn-ghost:active {
-  transform: translateY(0px);
-}
+.btn-ghost:active { transform: translateY(0); }
 
-.btn-lg { padding: 14px 28px; font-size: 15px; border-radius: 11px; box-shadow: 0 10px 24px rgba(0,0,0,0.18); }
-.btn-xl { padding: 18px 38px; font-size: 16px; font-weight: 700; border-radius: 12px; letter-spacing: 0.3px; }
+.btn-lg  { padding: 14px 28px; font-size: 13px; }
+.btn-xl  { padding: 17px 36px; font-size: 13px; letter-spacing: 0.8px; box-shadow: 0 0 32px rgba(0,200,83,0.20); }
 
 .header-cta {
   min-height: 36px;
-  padding: 0 12px;
+  padding: 0 14px;
   font-size: 11px;
-  border-radius: 11px;
-  box-shadow: 0 6px 16px rgba(37,211,102,0.14);
-  letter-spacing: 0.08px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5px;
 }
 
 .header-cta .wa-icon {
@@ -291,57 +302,60 @@ nav a.active::after { transform: scaleX(1); }
 .wa-icon { width: 18px; height: 18px; flex-shrink: 0; }
 
 /* ─── SECTIONS ─── */
-section { padding: 124px 28px; }
-.container { max-width: 1180px; margin: 0 auto; }
+section { padding: 120px 28px; }
+.container { max-width: 1160px; margin: 0 auto; }
 
 /* ─── SECTION LABEL ─── */
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11px;
+  gap: 10px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--accent-light);
-  margin-bottom: 14px;
+  letter-spacing: 2.5px;
+  color: var(--accent-bright);
+  margin-bottom: 18px;
+  font-family: var(--font-mono);
 }
 
 .section-label::before {
   content: '';
-  width: 20px; height: 1px;
-  background: var(--accent-light);
+  width: 24px; height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 h2 {
   font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 46px);
-  font-weight: 800;
-  letter-spacing: -1.35px;
-  line-height: 1.08;
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 900;
+  letter-spacing: -1.8px;
+  line-height: 1.05;
   color: var(--text);
-  margin-bottom: 26px;
+  margin-bottom: 20px;
 }
 
 .section-sub {
-  font-size: 17px;
+  font-size: 16px;
   color: var(--text2);
-  max-width: 590px;
-  line-height: 1.75;
+  max-width: 520px;
+  line-height: 1.85;
   font-weight: 300;
 }
 
 /* ─── HERO ─── */
 #hero {
   min-height: 100vh;
-  padding-top: 124px;
-  padding-bottom: 88px;
+  padding-top: 140px;
+  padding-bottom: 100px;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
 }
 
+/* linha diagonal de fundo — identidade própria */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -350,37 +364,45 @@ h2 {
 
 .hero-orb-1 {
   position: absolute;
-  top: -15%; left: 55%;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(37,99,235,0.13) 0%, transparent 65%);
-  animation: float-orb 8s ease-in-out infinite;
+  top: 0; right: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, var(--accent) 40%, transparent 100%);
+  opacity: 0.12;
+  transform: translateX(-320px) rotate(18deg) scaleY(1.4);
+  transform-origin: top right;
 }
 
 .hero-orb-2 {
   position: absolute;
-  bottom: 0; left: -10%;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(29,78,216,0.07) 0%, transparent 65%);
-  animation: float-orb 12s ease-in-out infinite reverse;
+  top: 0; right: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, var(--accent-bright) 50%, transparent 100%);
+  opacity: 0.06;
+  transform: translateX(-200px) rotate(18deg) scaleY(1.4);
+  transform-origin: top right;
 }
 
+/* número editorial de fundo */
 .hero-grid-lines {
   position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 100%);
-}
-
-@keyframes float-orb {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-30px) scale(1.05); }
+  right: -20px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(180px, 22vw, 320px);
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,102,255,0.07);
+  letter-spacing: -12px;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 .hero-inner {
-  max-width: 1180px;
+  max-width: 1160px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.38fr 0.62fr;
@@ -394,35 +416,37 @@ h2 {
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 6px 13px;
-  border-radius: 100px;
-  margin-bottom: 20px;
+  gap: 12px;
+  color: var(--accent-bright);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  border: none;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
   animation: fade-up 0.6s ease both;
 }
 
-.hero-eyebrow-dot {
-  width: 6px; height: 6px;
-  background: var(--green);
-  border-radius: 50%;
-  animation: pulse-dot 2s infinite;
+.hero-eyebrow::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--accent);
   flex-shrink: 0;
 }
 
+.hero-eyebrow-dot { display: none; }
+
 h1 {
-  --accent-scale: 0.9;
   font-family: var(--font-display);
-  font-size: clamp(40px, 5.5vw, 64px);
-  font-weight: 800;
-  line-height: 1.04;
-  letter-spacing: -2px;
+  font-size: clamp(38px, 5.2vw, 62px);
+  font-weight: 900;
+  line-height: 1.03;
+  letter-spacing: -2.2px;
   color: var(--text);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   animation: fade-up 0.6s 0.1s ease both;
 }
 
@@ -444,11 +468,11 @@ h1 .danger::after {
 }
 
 .hero-sub {
-  font-size: 17px;
+  font-size: 18px;
   margin-top: 6px;
-  color: rgba(255,255,255,0.74);
-  line-height: 1.84;
-  margin-bottom: 32px;
+  color: rgba(255,255,255,0.70);
+  line-height: 1.88;
+  margin-bottom: 36px;
   max-width: 560px;
   font-weight: 300;
   letter-spacing: -0.01em;
@@ -581,8 +605,8 @@ h1 .danger::after {
 
 .floating-cta {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
+  right: 20px;
+  bottom: 20px;
   z-index: 999;
   width: 58px;
   height: 58px;
@@ -593,8 +617,14 @@ h1 .danger::after {
   background: #25D366;
   color: #fff;
   text-decoration: none;
-  box-shadow: 0 14px 34px rgba(37,211,102,0.28);
-  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 28px rgba(37,211,102,0.32), 0 0 0 0 rgba(37,211,102,0.3);
+  transition: transform 0.25s var(--ease-spring), background 0.2s, box-shadow 0.2s;
+  animation: float-pulse 3s ease-in-out infinite;
+}
+
+@keyframes float-pulse {
+  0%, 100% { box-shadow: 0 8px 28px rgba(37,211,102,0.32), 0 0 0 0 rgba(37,211,102,0.3); }
+  50% { box-shadow: 0 8px 28px rgba(37,211,102,0.32), 0 0 0 8px rgba(37,211,102,0); }
 }
 
 .floating-cta .wa-icon {
@@ -603,9 +633,10 @@ h1 .danger::after {
 }
 
 .floating-cta:hover {
-  transform: translateY(-2px) scale(1.04);
-  background: #20bd5a;
-  box-shadow: 0 18px 38px rgba(37,211,102,0.34);
+  transform: translateY(-3px) scale(1.06);
+  background: #1fba59;
+  box-shadow: 0 16px 40px rgba(37,211,102,0.40);
+  animation: none;
 }
 
 .phone-hero-bar {
@@ -699,23 +730,23 @@ h1 .danger::after {
 
 .proof-number {
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 800;
   color: var(--text);
   line-height: 1;
-  margin-bottom: 5px;
-  letter-spacing: -1px;
+  margin-bottom: 6px;
+  letter-spacing: -1.2px;
 }
 
 .proof-number span { color: var(--accent-bright); }
 
 .proof-desc {
   font-size: 11px;
-  color: rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.32);
   text-align: center;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
 }
 
 /* ─── PAIN ─── */
@@ -757,21 +788,22 @@ h1 .danger::after {
 .pain-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
+  gap: 1px;
   margin-bottom: 52px;
-  border: 1px solid rgba(248,113,113,0.1);
-  border-radius: 24px;
+  border: 1px solid var(--border);
+  border-radius: 0;
   overflow: hidden;
   text-align: left;
+  background: var(--border);
 }
 
 .pain-item {
   background: var(--bg2);
-  padding: 28px 28px;
+  padding: 32px 30px;
   transition: background 0.2s;
   display: flex;
   align-items: flex-start;
-  gap: 18px;
+  gap: 20px;
 }
 
 .pain-item:hover { background: var(--bg3); }
@@ -796,14 +828,14 @@ h1 .danger::after {
   font-weight: 700;
   color: var(--text);
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
   line-height: 1.3;
 }
 
 .pain-item-text p {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--text2);
-  line-height: 1.6;
+  line-height: 1.65;
   font-weight: 300;
   margin: 0;
 }
@@ -814,33 +846,37 @@ h1 .danger::after {
 .why-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: 1px;
   margin-top: 60px;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 24px;
+  border: 1px solid var(--border);
+  border-radius: 0;
   overflow: hidden;
+  background: var(--border);
 }
 
 .why-card {
   background: var(--bg3);
-  padding: 36px 30px;
+  padding: 40px 32px;
   transition: background 0.2s;
   position: relative;
   overflow: hidden;
+  border-left: 2px solid transparent;
 }
 
 .why-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent2), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
+  height: 1px;
+  background: var(--border);
 }
 
-.why-card:hover { background: #191919; }
-.why-card:hover::before { opacity: 1; }
+.why-card:hover {
+  background: #131318;
+  border-left-color: var(--accent);
+}
+
+.why-card:hover::before { background: var(--accent); opacity: 0.3; }
 
 .why-number {
   font-family: var(--font-display);
@@ -938,11 +974,11 @@ h1 .danger::after {
 }
 
 .project-card {
-  background: linear-gradient(180deg, rgba(15,15,15,0.95), rgba(13,13,13,0.98));
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 0;
   overflow: hidden;
-  transition: border-color 0.3s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+  transition: border-color 0.25s, transform 0.25s var(--ease-out);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -951,17 +987,17 @@ h1 .danger::after {
 .project-card::after {
   content: '';
   position: absolute;
-  inset: auto 18px 0 18px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(37,99,235,0.5), transparent);
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--accent);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.25s;
 }
 
 .project-card:hover {
-  border-color: rgba(37,99,235,0.3);
-  transform: translateY(-6px);
-  box-shadow: 0 24px 48px rgba(0,0,0,0.45), 0 0 0 1px rgba(37,99,235,0.08);
+  border-color: var(--border2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.5);
 }
 
 .project-card:hover::after { opacity: 1; }
@@ -1090,11 +1126,12 @@ h1 .danger::after {
   font-weight: 600;
   color: var(--accent-bright);
   text-decoration: none;
-  transition: gap 0.2s;
+  transition: gap 0.2s, opacity 0.2s;
   letter-spacing: 0.1px;
+  opacity: 0.8;
 }
 
-.project-link:hover { gap: 10px; }
+.project-link:hover { gap: 10px; opacity: 1; }
 
 .hero-micro-proof {
   font-size: 12px;
@@ -1106,12 +1143,12 @@ h1 .danger::after {
 }
 
 .project-result {
-  font-size: 12px;
-  color: var(--accent-bright);
-  margin-bottom: 14px;
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 12px;
   line-height: 1.5;
   font-weight: 500;
-  letter-spacing: 0.1px;
+  letter-spacing: 0.2px;
 }
 
 
@@ -1121,32 +1158,31 @@ h1 .danger::after {
 .includes-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: 1px;
   margin-top: 60px;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 24px;
+  border: 1px solid var(--border);
+  border-radius: 0;
   overflow: hidden;
+  background: var(--border);
 }
 
 .include-item {
   background: var(--bg3);
-  padding: 32px 26px;
-  transition: background 0.2s;
+  padding: 36px 28px;
+  transition: background 0.2s, border-color 0.2s;
   position: relative;
+  border-left: 2px solid transparent;
 }
 
 .include-item::after {
   content: '';
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent2), var(--accent-bright));
-  opacity: 0;
-  transition: opacity 0.3s;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--border);
 }
 
-.include-item:hover { background: #191919; }
-.include-item:hover::after { opacity: 1; }
+.include-item:hover { background: #131318; border-left-color: var(--accent); }
 
 .include-icon {
   font-size: 26px;
@@ -1199,7 +1235,7 @@ h1 .danger::after {
 .step-num {
   width: 54px; height: 54px;
   background: var(--bg3);
-  border: 1px solid rgba(37,99,235,0.3);
+  border: 1px solid rgba(35,88,232,0.28);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1210,12 +1246,14 @@ h1 .danger::after {
   color: var(--accent-bright);
   margin-bottom: 28px;
   transition: var(--transition);
-  box-shadow: 0 0 0 4px var(--bg);
+  box-shadow: 0 0 0 5px var(--bg);
 }
 
 .step:hover .step-num {
   background: var(--accent-dim);
-  box-shadow: 0 0 0 4px var(--bg), 0 0 20px rgba(37,99,235,0.2);
+  border-color: rgba(35,88,232,0.5);
+  box-shadow: 0 0 0 5px var(--bg), 0 0 24px rgba(35,88,232,0.18);
+  transform: scale(1.06);
 }
 
 .step h3 {
@@ -1402,14 +1440,22 @@ h1 .danger::after {
   gap:18px;
 }
 .feedback-card {
-  padding: 24px;
-  border-radius: 20px;
-  border:1px solid var(--border);
+  padding: 28px;
+  border-radius: 0;
+  border: 1px solid var(--border);
   background: var(--bg3);
+  transition: border-color 0.2s, transform 0.25s var(--ease-spring);
+  border-left: 2px solid transparent;
 }
-.feedback-stars { color: var(--accent-bright); font-size: 14px; letter-spacing: 2px; margin-bottom: 12px; }
-.feedback-card p { color: rgba(255,255,255,0.72); font-size: 14px; line-height: 1.75; font-weight: 300; }
-.feedback-card strong { display:block; margin-top: 14px; font-size: 13px; color: var(--text); }
+
+.feedback-card:hover {
+  border-color: var(--border2);
+  border-left-color: var(--accent);
+  transform: translateY(-3px);
+}
+.feedback-stars { color: #f59e0b; font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; }
+.feedback-card p { color: rgba(255,255,255,0.68); font-size: 14px; line-height: 1.78; font-weight: 300; font-style: italic; }
+.feedback-card strong { display: block; margin-top: 16px; font-size: 12px; color: var(--text2); font-style: normal; font-weight: 600; letter-spacing: 0.2px; }
 
 /* ─── DIFFERENTIAL ─── */
 #differential { background: var(--bg2); }
@@ -1444,8 +1490,8 @@ h1 .danger::after {
 .faq-list {
   margin-top: 52px;
   max-width: 740px;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 24px;
+  border: 1px solid var(--border);
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -1528,10 +1574,11 @@ h1 .danger::after {
 }
 
 .cta-box {
-  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(29,78,216,0.05));
-  border: 1px solid rgba(37,99,235,0.18);
-  border-radius: 24px;
-  padding: 76px 60px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-top: 2px solid var(--accent);
+  border-radius: 0;
+  padding: 80px 64px;
   text-align: center;
   position: relative;
   z-index: 2;
@@ -1551,15 +1598,15 @@ h1 .danger::after {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--red);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-  background: rgba(248,113,113,0.08);
-  border: 1px solid rgba(248,113,113,0.15);
-  padding: 6px 14px;
+  letter-spacing: 1.2px;
+  margin-bottom: 22px;
+  background: rgba(248,113,113,0.07);
+  border: 1px solid rgba(248,113,113,0.14);
+  padding: 7px 16px;
   border-radius: 100px;
 }
 
@@ -1611,15 +1658,7 @@ h1 .danger::after {
 footer {
   background: var(--bg);
   border-top: 1px solid var(--border);
-  padding: 28px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 13px;
-  color: var(--text3);
-  max-width: 100%;
+  padding: 28px;
 }
 
 footer .footer-inner {
@@ -1635,22 +1674,52 @@ footer .footer-inner {
 
 .footer-logo {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 900;
   font-size: 15px;
-  color: var(--text3);
-  letter-spacing: -0.3px;
+  color: var(--text);
+  letter-spacing: -0.4px;
 }
+
+.footer-logo span { color: var(--accent-bright); }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text3);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-link--accent { color: var(--accent-bright); }
+.footer-link--accent:hover { color: var(--text); }
+
+.footer-link--ig { color: var(--text2); }
+.footer-link--ig:hover { color: var(--text); }
 
 /* ─── ANIMATIONS ─── */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1);
+  transform: translateY(22px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
   will-change: opacity, transform;
 }
 
@@ -1660,28 +1729,27 @@ footer .footer-inner {
   will-change: auto;
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
 
 /* ─── MOBILE ─── */
 .mobile-menu-btn {
   display: none;
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.09);
   color: var(--text);
-  width: 42px; height: 42px;
-  border-radius: 12px;
+  width: 40px; height: 40px;
+  border-radius: 10px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
   transition: var(--transition);
 }
 
 .mobile-menu-btn:hover {
-  border-color: rgba(37,99,235,0.35);
+  border-color: rgba(35,88,232,0.35);
   background: rgba(255,255,255,0.05);
 }
 
@@ -1795,6 +1863,14 @@ footer .footer-inner {
   .cta-trust-row { flex-direction: column; gap: 12px; }
   .proof-stat { flex: 1 1 100%; border-right: none; }
   .differential-grid { grid-template-columns: 1fr; }
+
+  /* botões — reduz letter-spacing no mobile */
+  .btn { letter-spacing: 0.3px; }
+  .btn-xl { letter-spacing: 0.3px; padding: 15px 28px; }
+
+  /* steps mobile — borda esquerda como separador visual */
+  .step { padding: 20px 20px 20px 24px; border-left: 2px solid var(--border); }
+  .step-num { width: 40px; height: 40px; font-size: 16px; margin-bottom: 14px; }
 }
 
 /* ─── SCREENSHOT PREVIEW ─── */
@@ -1923,10 +1999,16 @@ footer .footer-inner {
 </nav>
 <div class="header-actions">
 <a class="btn btn-whatsapp header-cta" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20quero%20entender%20como%20ter%20um%20site%20que%20gere%20mais%20clientes" rel="noopener noreferrer" target="_blank">
-<svg class="wa-icon" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+<svg class="wa-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
       WhatsApp
     </a>
-<button aria-label="Abrir menu" class="mobile-menu-btn">☰</button>
+<button aria-label="Abrir menu" class="mobile-menu-btn" id="menuBtn">
+  <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="18" height="2" rx="1" fill="currentColor"/>
+    <rect y="6" width="12" height="2" rx="1" fill="currentColor"/>
+    <rect y="12" width="18" height="2" rx="1" fill="currentColor"/>
+  </svg>
+</button>
 </div>
 </div>
 </header>
@@ -1941,26 +2023,26 @@ footer .footer-inner {
 <div class="hero-bg">
 <div class="hero-orb-1"></div>
 <div class="hero-orb-2"></div>
-<div class="hero-grid-lines"></div>
+<div class="hero-grid-lines" aria-hidden="true">01</div>
 </div>
 <div class="hero-inner container">
 <div>
 <div class="hero-eyebrow">
 <div class="hero-eyebrow-dot"></div>
-        Design pensado para transmitir confiança no WhatsApp
+        Sites que convertem visitas em clientes reais
       </div>
-<h1>Seu negócio pode estar deixando oportunidades na internet</h1>
+<h1>Seu negócio não precisa de mais visitas.<br/><span class="accent">Precisa converter.</span></h1>
 <p class="hero-sub">
-        Se a sua presença online não transmite confiança, as pessoas visitam… mas não entram em contato.<br/><br/>Eu desenvolvo sites pensados para transformar visitas em oportunidades reais.
+        Todo dia que seu site não convence, você perde clientes para o concorrente.<br/><strong>Um site profissional transforma visitantes em contatos no WhatsApp.</strong>
       </p>
 <div class="hero-ctas">
-<a class="btn btn-whatsapp btn-lg" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20quero%20entender%20como%20ter%20um%20site%20que%20gere%20mais%20clientes" rel="noopener noreferrer" target="_blank">
-<svg class="wa-icon" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
-          Quero mais clientes no WhatsApp
+<a class="btn btn-whatsapp btn-xl" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20quero%20um%20site%20que%20gere%20mais%20clientes" rel="noopener noreferrer" target="_blank">
+<svg class="wa-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+          Quero um site que converte agora
         </a>
 <a class="btn btn-ghost btn-lg" href="#portfolio">Ver projetos reais →</a>
 </div>
-<div class="hero-micro-proof">Projetos reais • Clientes já utilizando</div>
+<div class="hero-micro-proof">+8 projetos no ar • Clientes já faturando</div>
 <div class="hero-trust">
 <div class="hero-trust-item"><span class="check">✓</span> Projetos reais já no ar</div>
 <div class="hero-trust-item"><span class="check">✓</span> Atendimento direto e personalizado</div>
@@ -2002,24 +2084,24 @@ footer .footer-inner {
 </div>
 </section>
 <!-- PROOF BAR -->
-<section id="proof-bar">
+<section id="proof-bar" aria-label="Números do trabalho">
 <div class="proof-bar-inner">
-<div class="proof-stat reveal">
-<div class="proof-number">+<span>8</span></div>
-<div class="proof-desc">Projetos reais já no ar</div>
-</div>
-<div class="proof-stat reveal reveal-delay-1">
-<div class="proof-number"><span>Clientes</span></div>
-<div class="proof-desc">Já utilizando os projetos</div>
-</div>
-<div class="proof-stat reveal reveal-delay-3">
-<div class="proof-number"><span>100</span>%</div>
-<div class="proof-desc">Foco em gerar contato</div>
-</div>
-<div class="proof-stat reveal reveal-delay-3">
-<div class="proof-number"><span>WhatsApp</span></div>
-<div class="proof-desc">Integrado para facilitar ação</div>
-</div>
+  <div class="proof-stat reveal">
+    <div class="proof-number">+<span>8</span></div>
+    <div class="proof-desc">Sites entregues e no ar</div>
+  </div>
+  <div class="proof-stat reveal reveal-delay-1">
+    <div class="proof-number"><span>3</span> dias</div>
+    <div class="proof-desc">Prazo médio de entrega</div>
+  </div>
+  <div class="proof-stat reveal reveal-delay-2">
+    <div class="proof-number"><span>100</span>%</div>
+    <div class="proof-desc">Mobile-first em todos os projetos</div>
+  </div>
+  <div class="proof-stat reveal reveal-delay-3">
+    <div class="proof-number">Rio<span> RJ</span></div>
+    <div class="proof-desc">Atendimento local e direto</div>
+  </div>
 </div>
 </section>
 <!-- SOCIAL PROOF -->
@@ -2039,19 +2121,19 @@ footer .footer-inner {
 </div>
 <div class="feedback-grid">
 <div class="feedback-card reveal">
-<div class="feedback-stars">★★★★★</div>
-<p>Projetos com visual profissional, organização clara e foco em passar confiança já no primeiro impacto.</p>
-<strong>Posicionamento mais forte</strong>
+  <div class="feedback-stars">★★★★★</div>
+  <p>"O site ficou exatamente o que eu precisava. Profissional, rápido e já recebi contatos pelo WhatsApp na primeira semana."</p>
+  <strong>Andrade Style — Barbearia, RJ</strong>
 </div>
 <div class="feedback-card reveal reveal-delay-1">
-<div class="feedback-stars">★★★★★</div>
-<p>Sites pensados para celular, com WhatsApp bem posicionado e estrutura mais preparada para gerar contato.</p>
-<strong>Estrutura voltada para contato</strong>
+  <div class="feedback-stars">★★★★★</div>
+  <p>"Antes eu dependia só do Instagram. Agora tenho um site que apresenta meu trabalho de verdade e facilita o contato."</p>
+  <strong>Energiza Elétrica — Serviços elétricos, RJ</strong>
 </div>
 <div class="feedback-card reveal reveal-delay-2">
-<div class="feedback-stars">★★★★★</div>
-<p>Cada layout é adaptado ao nicho para valorizar a marca e fazer o negócio parecer mais sério online.</p>
-<strong>Design alinhado ao nicho</strong>
+  <div class="feedback-stars">★★★★★</div>
+  <p>"Atendimento direto, entrega rápida e resultado visual muito acima do que eu esperava. Recomendo sem hesitar."</p>
+  <strong>Larry Detalhes — Estética automotiva, RJ</strong>
 </div>
 </div>
 </div>
@@ -2060,8 +2142,8 @@ footer .footer-inner {
 <section id="pain">
 <div class="pain-inner">
 <div class="section-label reveal">Presença digital com estratégia</div>
-<h2 class="reveal">O que muda quando<br/>seu negócio ganha um <span style="color:var(--accent-bright)">site profissional</span>?</h2>
-<p class="lead reveal">Um site bem construído melhora sua apresentação, organiza sua presença digital e facilita o contato de quem já chegou com interesse no seu serviço.</p>
+<h2 class="reveal">Sem um site profissional,<br/>você perde clientes <span style="color:var(--red)">todo dia</span></h2>
+<p class="lead reveal">Quem pesquisa no Google compara antes de ligar. Se o seu negócio não aparece bem apresentado, o cliente vai para o concorrente — simples assim.</p>
 <div class="pain-grid">
 <div class="pain-item reveal">
 <div class="pain-icon-wrap">🔍</div>
@@ -2094,7 +2176,7 @@ footer .footer-inner {
 </div>
 <div class="reveal">
 <a class="btn btn-whatsapp btn-lg" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20quero%20entender%20como%20ter%20um%20site%20que%20gere%20mais%20clientes" rel="noopener noreferrer" target="_blank">
-<svg class="wa-icon" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+<svg class="wa-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
         Conversar sobre um site para meu negócio
       </a>
 </div>
@@ -2113,14 +2195,14 @@ footer .footer-inner {
 </div>
 <div class="why-card reveal reveal-delay-1">
 <div class="why-number">
-<svg fill="none" height="42" stroke="currentColor" stroke-width="1.8" style="color:var(--accent2)" viewbox="0 0 24 24" width="42"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+<svg fill="none" height="42" stroke="currentColor" stroke-width="1.8" style="color:var(--accent2)" viewBox="0 0 24 24" width="42"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
 </div>
 <h3>Seu site é um ativo do seu negócio</h3>
 <p>Ele organiza sua marca, seus serviços, seus diferenciais e seu contato em um espaço que é seu, sem depender só de rede social.</p>
 </div>
 <div class="why-card reveal reveal-delay-2">
 <div class="why-number">
-<svg fill="none" height="42" stroke="currentColor" stroke-width="1.8" style="color:var(--accent2)" viewbox="0 0 24 24" width="42"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg>
+<svg fill="none" height="42" stroke="currentColor" stroke-width="1.8" style="color:var(--accent2)" viewBox="0 0 24 24" width="42"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg>
 </div>
 <h3>Profissionalismo melhora a percepção de valor</h3>
 <p>Um visual bem construído, com estrutura e clareza, ajuda o cliente a enxergar mais seriedade no seu serviço.</p>
@@ -2132,10 +2214,10 @@ footer .footer-inner {
 <section id="mid-cta">
 <div class="mid-cta-inner">
 <h2 class="reveal">Seu negócio precisa parecer mais forte<br/>antes do cliente pedir orçamento</h2>
-<p class="reveal">Conversa rápida e direta pelo WhatsApp. Você me mostra o seu negócio, eu te digo o que está travando seus contatos e a melhor estrutura para resolver isso.</p>
+<p class="reveal">Conversa rápida e direta pelo WhatsApp. Você me conta sobre o seu negócio, eu te mostro o que está travando seus contatos e como resolver.</p>
 <div class="reveal">
 <a class="btn btn-whatsapp btn-xl" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20quero%20entender%20como%20ter%20um%20site%20que%20gere%20mais%20clientes" rel="noopener noreferrer" target="_blank">
-<svg class="wa-icon" fill="currentColor" style="width:20px;height:20px" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+<svg class="wa-icon" fill="currentColor" style="width:20px;height:20px" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
         QUERO ENTENDER MEU SITE IDEAL
       </a>
 <div class="cta-micro">Atendimento personalizado no WhatsApp</div>
@@ -2165,7 +2247,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Estética automotiva</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Larry Detalhes</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Identidade premium · Contato direto pelo WhatsApp</div>
 <div class="project-highlight">Projeto profissional voltado para apresentação da marca, valorização visual e facilidade de contato pelo WhatsApp.</div>
 <a class="project-link" href="https://larrydetalhes.vercel.app/" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2181,7 +2263,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Elétrica</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Energiza</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Landing page de orçamento · Mobile-first</div>
 <div class="project-highlight">Landing page criada para transmitir profissionalismo, destacar serviços e facilitar o pedido de orçamento pelo WhatsApp.</div>
 <a class="project-link" href="https://energiza-tste.vercel.app/" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2197,7 +2279,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Barbearia</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Andrade Style</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Visual premium · Agendamento pelo WhatsApp</div>
 <div class="project-highlight">Projeto com identidade premium para transmitir profissionalismo, organizar informações e valorizar o negócio online.</div>
 <a class="project-link" href="https://andrade-style.vercel.app/" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2213,7 +2295,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Produtividade</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Habit Flow</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Interface moderna · UX focada em engajamento</div>
 <div class="project-highlight">Interface moderna para acompanhamento de hábitos, com apresentação visual forte e experiência digital mais refinada.</div>
 <a class="project-link" href="https://habit-flow-progress.vercel.app/" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2229,7 +2311,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Finanças</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Andrades Finanças</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Dashboard funcional · Design limpo e profissional</div>
 <div class="project-highlight">Projeto com proposta funcional e organizada, pensado para apresentar um sistema financeiro com visual profissional.</div>
 <a class="project-link" href="https://andradesfinanca.vercel.app/auth" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2245,7 +2327,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Entretenimento</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Grupo Vim Te Ver</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Presença institucional · Contratação facilitada</div>
 <div class="project-highlight">Projeto institucional criado para apresentar o grupo com mais impacto visual, autoridade e facilidade de contato para contratação.</div>
 <a class="project-link" href="https://grupo-vim-te-ver.vercel.app/" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2261,7 +2343,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Hamburgueria</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Silvas Brasa Burger</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Cardápio em destaque · Pedidos pelo WhatsApp</div>
 <div class="project-highlight">Projeto voltado para fortalecer a apresentação da hamburgueria, destacar cardápio e facilitar o contato comercial.</div>
 <a class="project-link" href="https://silvas-brasa-burger-tdlu.vercel.app/" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2277,7 +2359,7 @@ footer .footer-inner {
 <div class="project-info">
 <div class="project-meta"><span class="tag tag-segment">Moto peças</span><span class="tag tag-live">No ar</span></div>
 <div class="project-name">Moto Peças Dois Irmãos</div>
-<div class="project-result">Mais confiança • Mais contato • Mais autoridade</div>
+<div class="project-result">✦ Loja digital · Atendimento direto pelo WhatsApp</div>
 <div class="project-highlight">Projeto para fortalecer a presença digital da loja, destacar atendimento e facilitar o contato direto pelo WhatsApp.</div>
 <a class="project-link" href="https://motopecasdoisirmaos.vercel.app/" rel="noopener noreferrer" target="_blank">Ver site ao vivo →</a>
 </div>
@@ -2314,12 +2396,12 @@ footer .footer-inner {
 <div class="step reveal reveal-delay-1">
 <div class="step-num">2</div>
 <h3>Desenvolvimento e aprovação</h3>
-<p>Eu desenvolvo o site e apresento para sua aprovação. Ajustamos texto, visual, seções e detalhes até ficar alinhado ao que você precisa.</p>
+<p>Desenvolvo o site completo e apresento para você revisar. Ajustamos textos, visual e detalhes até estar exatamente como você quer — sem custo extra por revisão.</p>
 </div>
 <div class="step reveal reveal-delay-2">
 <div class="step-num">3</div>
 <h3>Publicação e entrega final</h3>
-<p>Com tudo aprovado, o site vai para o ar com domínio, estrutura técnica organizada e WhatsApp funcionando corretamente.</p>
+<p>Site aprovado, vai ao ar em até 24h. Entrego com domínio configurado, WhatsApp integrado e suporte direto comigo após a publicação.</p>
 </div>
 </div>
 </div>
@@ -2343,11 +2425,11 @@ footer .footer-inner {
 <p class="reveal">Cada projeto é construído para valorizar a marca, organizar melhor a oferta e deixar claro por que o cliente deve chamar agora.<br/><br/>Em vez de entregar um site genérico, eu adapto visual, hierarquia e conteúdo para o nicho, para o momento do negócio e para a percepção de valor que ele precisa passar.</p>
 <div class="about-stats reveal">
 <div class="about-stat">
-<div class="about-stat-num">+<span>10</span></div>
+<div class="about-stat-num">+<span>8</span></div>
 <div class="about-stat-label">Sites entregues</div>
 </div>
 <div class="about-stat">
-<div class="about-stat-num"><span>7</span> dias</div>
+<div class="about-stat-num"><span>3</span> dias</div>
 <div class="about-stat-label">Prazo médio</div>
 </div>
 </div>
@@ -2377,7 +2459,7 @@ footer .footer-inner {
 <div class="faq-list reveal">
 <div class="faq-item">
 <div class="faq-q">Quanto tempo leva para ficar pronto? <div class="faq-icon">+</div></div>
-<div class="faq-a">Em média 5 a 7 dias úteis após a conversa inicial e aprovação do briefing. Projetos mais simples podem ficar prontos em menos tempo.</div>
+<div class="faq-a">Em média 3 dias úteis após a conversa inicial e aprovação do briefing. Projetos mais simples podem ficar prontos em menos tempo.</div>
 </div>
 <div class="faq-item">
 <div class="faq-q">Preciso saber mexer no site depois? <div class="faq-icon">+</div></div>
@@ -2402,12 +2484,12 @@ footer .footer-inner {
 <section id="cta-final">
 <div class="container">
 <div class="cta-box reveal">
-<div class="cta-eyebrow">Seu concorrente não espera o seu negócio se organizar</div>
-<h2>Enquanto você pensa,<br/>seu concorrente pode estar fechando clientes</h2>
-<p>Se o seu negócio ainda não transmite confiança suficiente para fazer o cliente agir, você já pode estar perdendo orçamento todos os dias. Me chama e vamos corrigir isso.</p>
+<div class="cta-eyebrow">⚡ Enquanto você pensa, seu concorrente está faturando</div>
+<h2>Pronto para ter um site<br/>que <span style="color:var(--accent-bright)">realmente converte</span>?</h2>
+<p>Atendimento direto, sem enrolação. Me chama no WhatsApp agora e em minutos você já sabe o que precisa para transformar seu site em uma máquina de clientes.</p>
 <a class="btn btn-whatsapp btn-xl" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20quero%20entender%20como%20ter%20um%20site%20que%20gere%20mais%20clientes" rel="noopener noreferrer" target="_blank">
-<svg class="wa-icon" fill="currentColor" style="width:20px;height:20px" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
-        Quero meu orçamento
+<svg class="wa-icon" fill="currentColor" style="width:20px;height:20px" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+        Falar com Luigi agora
       </a>
 <div class="cta-micro">Atendimento direto comigo no WhatsApp</div>
 <div class="cta-trust-row">
@@ -2421,13 +2503,19 @@ footer .footer-inner {
 <!-- FOOTER -->
 <footer>
 <div class="footer-inner">
-<div class="footer-logo" style="display:flex;align-items:center;gap:8px;"><span style="color:var(--text);font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-0.3px;">Luigi<span style="color:var(--accent-bright)">Sites</span></span></div>
-<span>Criação de sites para negócios locais • Rio de Janeiro - RJ</span>
-<a href="https://wa.me/5521982942184" rel="noopener noreferrer" style="color:var(--accent-bright);text-decoration:none;font-size:13px;font-weight:500;" target="_blank">WhatsApp: (21) 98294-2184</a>
+  <div class="footer-logo">Luigi<span>Sites</span></div>
+  <span class="footer-copy">Criação de sites para negócios locais • Rio de Janeiro - RJ</span>
+  <div class="footer-links">
+    <a class="footer-link footer-link--accent" href="https://wa.me/5521982942184" rel="noopener noreferrer" target="_blank">WhatsApp: (21) 98294-2184</a>
+    <a class="footer-link footer-link--ig" href="https://instagram.com/luigisites" rel="noopener noreferrer" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      @luigisites
+    </a>
+  </div>
 </div>
 </footer>
-<a aria-label="Falar no WhatsApp" class="floating-cta" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20vim%20pelo%20seu%20site%20e%20quero%20um%20or%C3%A7amento" rel="noopener noreferrer" style="padding:16px;border-radius:50%;width:56px;height:56px;justify-content:center;" target="_blank">
-<svg fill="currentColor" style="width:24px;height:24px;flex-shrink:0;" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+<a aria-label="Falar no WhatsApp" class="floating-cta" href="https://wa.me/5521982942184?text=Oi%20Luigi%2C%20vim%20pelo%20seu%20site%20e%20quero%20um%20or%C3%A7amento" rel="noopener noreferrer" target="_blank">
+<svg fill="currentColor" style="width:24px;height:24px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
 </a>
 <script>
 (function () {
