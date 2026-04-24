@@ -954,23 +954,145 @@ h1 .danger::after {
   row-gap: 24px;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 52px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
   gap: 16px;
 }
 
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+/* ─── CAROUSEL WRAPPER com fade nas bordas ─── */
+.carousel-wrapper {
+  position: relative;
 }
 
-.portfolio-mobile-hint {
-  display: none;
-  margin-top: 14px;
-  font-size: 12px;
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 12px;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.carousel-wrapper::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg) 0%, transparent 100%);
+}
+
+.carousel-wrapper::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg) 0%, transparent 100%);
+}
+
+.carousel-wrapper.at-start::before { opacity: 0; }
+.carousel-wrapper.at-end::after   { opacity: 0; }
+
+.portfolio-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
+  cursor: grab;
+}
+
+.portfolio-grid:active { cursor: grabbing; }
+
+.portfolio-grid::-webkit-scrollbar { display: none; }
+.portfolio-grid { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* peek: último card aparece cortado indicando mais conteúdo */
+.portfolio-grid .project-card {
+  flex: 0 0 calc(33.333% - 14px);
+  scroll-snap-align: start;
+  min-width: 0;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+
+.portfolio-grid .project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+}
+
+.portfolio-mobile-hint { display: none; }
+
+/* ─── CAROUSEL FOOTER: setas + counter + dots ─── */
+.carousel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+  gap: 16px;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carousel-btn {
+  width: 44px; height: 44px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--text2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+  transform: translateY(-1px);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+  border-color: var(--border);
+  transform: none;
+}
+
+.carousel-btn svg { width: 16px; height: 16px; pointer-events: none; }
+
+.carousel-counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
   color: var(--text3);
-  letter-spacing: 0.2px;
+  letter-spacing: 1px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.carousel-counter span { color: var(--text2); }
+
+/* dots */
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.carousel-dot {
+  width: 20px; height: 2px;
+  background: var(--border2);
+  border-radius: 1px;
+  transition: background 0.25s, width 0.25s;
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background: var(--accent-bright);
+  width: 32px;
 }
 
 .project-card {
@@ -1824,7 +1946,8 @@ footer .footer-inner {
   .pain-grid { grid-template-columns: 1fr; }
   .proof-bar-inner { flex-wrap: wrap; }
   .feedback-grid { grid-template-columns: 1fr; }
-  .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .portfolio-grid { gap: 16px; }
+  .portfolio-grid .project-card { flex: 0 0 calc(50% - 8px); }
   .differential-grid { grid-template-columns: 1fr 1fr; }
   .proof-stat { flex: 1 1 45%; border-bottom: 1px solid var(--border); }
 }
@@ -1848,9 +1971,10 @@ footer .footer-inner {
   color: rgba(255,255,255,0.80); font-size: 14px; line-height: 1.85; margin-bottom: 28px; }
   .includes-grid { grid-template-columns: 1fr; }
   .portfolio-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 14px;
+    padding-bottom: 8px;
   }
+  .portfolio-grid .project-card { flex: 0 0 calc(100% - 28px); }
   .portfolio-mobile-hint { display: block; }
   .project-card { scroll-snap-align: start; }
   .project-preview { height: 300px; }
@@ -2234,10 +2358,10 @@ footer .footer-inner {
 <div class="section-label">Projetos reais</div>
 <h2>Sites reais. Clientes reais.</h2>
 <p class="section-sub">Cada projeto é feito para uma única coisa: gerar contato. Não é sobre estética. É sobre resultado.</p>
-<div class="portfolio-mobile-hint">Projetos reais desenvolvidos por Luigi Sites</div>
 </div>
 </div>
-<div class="portfolio-grid">
+<div class="carousel-wrapper at-start" id="carouselWrapper">
+<div class="portfolio-grid" id="portfolioGrid">
 <div class="project-card reveal">
 <div class="project-preview">
 <div class="browser-mockup preview-top preview-dark">
@@ -2666,6 +2790,57 @@ footer .footer-inner {
   });
 
 })();
+</script>
+
+<script>
+// ── Portfolio Carousel ────────────────────────────────────────
+(function () {
+  const grid = document.querySelector('.portfolio-grid');
+  const btnPrev = document.getElementById('carouselPrev');
+  const btnNext = document.getElementById('carouselNext');
+  if (!grid || !btnPrev || !btnNext) return;
+
+  function getScrollAmount() {
+    const card = grid.querySelector('.project-card');
+    return card ? card.offsetWidth + 20 : 320;
+  }
+
+  function updateButtons() {
+    btnPrev.disabled = grid.scrollLeft <= 4;
+    btnNext.disabled = grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth - 4;
+  }
+
+  btnPrev.addEventListener('click', () => {
+    grid.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+  });
+
+  btnNext.addEventListener('click', () => {
+    grid.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+  });
+
+  grid.addEventListener('scroll', updateButtons, { passive: true });
+  updateButtons();
+
+  // drag to scroll (desktop)
+  let isDown = false, startX, scrollLeft;
+  grid.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - grid.offsetLeft;
+    scrollLeft = grid.scrollLeft;
+    grid.style.userSelect = 'none';
+  });
+  grid.addEventListener('mouseleave', () => { isDown = false; });
+  grid.addEventListener('mouseup', () => {
+    isDown = false;
+    grid.style.userSelect = '';
+  });
+  grid.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - grid.offsetLeft;
+    grid.scrollLeft = scrollLeft - (x - startX) * 1.2;
+  });
+}());
 </script>
 </body>
 </html>
