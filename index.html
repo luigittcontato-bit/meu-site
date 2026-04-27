@@ -2890,9 +2890,13 @@ footer .footer-inner {
     const email = document.getElementById('lead-email').value.trim();
     btn.textContent = 'Enviando...';
     btn.disabled = true;
+    const params = new URLSearchParams();
+    params.append('nome', nome);
+    params.append('email', email);
     fetch(WEBHOOK, {
       method: 'POST',
-      body: JSON.stringify({ nome, email }),
+      mode: 'no-cors',
+      body: params,
     })
     .then(function() {
       msg.textContent = '✓ Recebido! Obrigado, ' + nome.split(' ')[0] + '.';
