@@ -2842,5 +2842,72 @@ footer .footer-inner {
   });
 }());
 </script>
+
+<!-- LEAD MODAL -->
+<div id="lead-modal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:20px;">
+  <div id="lead-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);"></div>
+  <div style="position:relative;background:#0f0f13;border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:40px 36px;max-width:420px;width:100%;z-index:1;box-shadow:0 24px 64px rgba(0,0,0,0.6);">
+    <button id="lead-close" aria-label="Fechar" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:22px;cursor:pointer;line-height:1;">✕</button>
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:#4d9fff;margin-bottom:14px;font-family:monospace;">Bem-vindo</div>
+    <h2 style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.8px;color:#f2f2f4;margin-bottom:8px;line-height:1.2;">Antes de continuar,<br/>deixa seu contato</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:24px;line-height:1.6;">Receba dicas e conteúdo sobre presença digital para negócios locais.</p>
+    <form id="lead-form">
+      <input id="lead-nome" type="text" placeholder="Seu nome completo" required autocomplete="name" style="width:100%;background:#16161c;border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:12px 14px;color:#f2f2f4;font-size:14px;margin-bottom:10px;outline:none;font-family:'Plus Jakarta Sans',sans-serif;"/>
+      <input id="lead-email" type="email" placeholder="Seu melhor e-mail" required autocomplete="email" style="width:100%;background:#16161c;border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:12px 14px;color:#f2f2f4;font-size:14px;margin-bottom:16px;outline:none;font-family:'Plus Jakarta Sans',sans-serif;"/>
+      <button type="submit" id="lead-btn" style="width:100%;background:#0066ff;color:#fff;border:none;border-radius:6px;padding:13px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background 0.2s;">Quero receber</button>
+      <p id="lead-msg" style="display:none;text-align:center;font-size:13px;color:#00c853;margin-top:12px;"></p>
+    </form>
+    <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.25);margin-top:14px;">Sem spam. Pode fechar quando quiser.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  if (localStorage.getItem('ls_lead_shown')) return;
+  const modal = document.getElementById('lead-modal');
+  const closeBtn = document.getElementById('lead-close');
+  const overlay = document.getElementById('lead-overlay');
+  const form = document.getElementById('lead-form');
+  const msg = document.getElementById('lead-msg');
+  const btn = document.getElementById('lead-btn');
+  const WEBHOOK = 'https://script.google.com/macros/s/AKfycbzu5aUpsoFPj6f_HTSeI-1V_sOy9gfECg7hSHfgOzPjL2LsnOImlLDaoD9w4jGRofbhwQ/exec';
+
+  function closeModal() {
+    modal.style.display = 'none';
+    localStorage.setItem('ls_lead_shown', '1');
+  }
+
+  setTimeout(function() {
+    modal.style.display = 'flex';
+  }, 3000);
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nome = document.getElementById('lead-nome').value.trim();
+    const email = document.getElementById('lead-email').value.trim();
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    fetch(WEBHOOK, {
+      method: 'POST',
+      body: JSON.stringify({ nome, email }),
+    })
+    .then(function() {
+      msg.textContent = '✓ Recebido! Obrigado, ' + nome.split(' ')[0] + '.';
+      msg.style.display = 'block';
+      form.querySelector('button').style.display = 'none';
+      setTimeout(closeModal, 2000);
+    })
+    .catch(function() {
+      msg.textContent = '✓ Recebido!';
+      msg.style.display = 'block';
+      setTimeout(closeModal, 2000);
+    });
+  });
+}());
+</script>
+
 </body>
 </html>
