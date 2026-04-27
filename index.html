@@ -2890,14 +2890,8 @@ footer .footer-inner {
     const email = document.getElementById('lead-email').value.trim();
     btn.textContent = 'Enviando...';
     btn.disabled = true;
-    const params = new URLSearchParams();
-    params.append('nome', nome);
-    params.append('email', email);
-    fetch(WEBHOOK, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: params,
-    })
+    const url = WEBHOOK + '?nome=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email);
+    fetch(url, { method: 'GET', mode: 'no-cors' })
     .then(function() {
       msg.textContent = '✓ Recebido! Obrigado, ' + nome.split(' ')[0] + '.';
       msg.style.display = 'block';
