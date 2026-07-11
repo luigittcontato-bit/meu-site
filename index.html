@@ -2060,6 +2060,206 @@ footer .footer-inner {
   .step-num { width: 40px; height: 40px; font-size: 16px; margin-bottom: 14px; }
 }
 
+/* ─────────────────────────────────────────────
+   APPLE-STYLE PREMIUM LAYER
+   Espaçamento, tipografia, gradientes, animações
+   ───────────────────────────────────────────── */
+
+/* Tipografia — tracking negativo agressivo nos títulos */
+h1 {
+  letter-spacing: -2.8px;
+  line-height: 1.0;
+}
+h2 {
+  letter-spacing: -2px;
+  line-height: 1.05;
+}
+
+/* Corpo — mais espaçado e leve */
+body {
+  font-size: 17px;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+}
+
+/* Seções — mais respiro */
+section {
+  padding: 140px 28px;
+}
+
+/* Container mais estreito = foco no conteúdo */
+.container {
+  max-width: 1080px;
+}
+
+/* Section label — mais fino */
+.section-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  opacity: 0.7;
+}
+
+/* Gradiente radial em seções alternadas — profundidade */
+#pain {
+  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,102,255,0.06) 0%, transparent 70%), var(--bg);
+}
+#why {
+  background: radial-gradient(ellipse 80% 50% at 50% 110%, rgba(0,102,255,0.05) 0%, transparent 70%), var(--bg2);
+}
+#includes {
+  background: radial-gradient(ellipse 70% 40% at 100% 50%, rgba(0,102,255,0.04) 0%, transparent 60%), var(--bg2);
+}
+#about {
+  background: radial-gradient(ellipse 60% 50% at 0% 50%, rgba(0,102,255,0.05) 0%, transparent 60%), var(--bg3);
+}
+#cta-final {
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,102,255,0.08) 0%, transparent 70%), var(--bg);
+}
+
+/* Reveal — entrada mais suave e elegante */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delays escalonados — efeito cascata Apple */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* h2 — margem inferior maior */
+h2 { margin-bottom: 28px; }
+
+/* Parágrafos de seção — mais legíveis */
+.section-sub {
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.55);
+  max-width: 560px;
+}
+
+/* Pain items — mais espaçados */
+.pain-item {
+  padding: 36px 32px;
+}
+.pain-grid {
+  gap: 1px;
+}
+
+/* Why cards — mais espaçados */
+.why-card {
+  padding: 48px 36px;
+}
+
+/* Include items — mais espaçados */
+.include-item {
+  padding: 40px 32px;
+}
+
+/* Steps — mais respiro */
+.step {
+  padding: 0 36px;
+}
+
+/* Feedback cards — mais premium */
+.feedback-card {
+  padding: 32px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px);
+}
+
+/* CTA box — mais impacto */
+.cta-box {
+  border-radius: 24px;
+  padding: 80px 60px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.015);
+  backdrop-filter: blur(8px);
+}
+
+/* Project cards — border-radius mais moderno */
+.project-card {
+  border-radius: 16px;
+}
+
+/* Botão WhatsApp — mais generoso */
+.btn-xl {
+  padding: 18px 40px;
+  border-radius: 100px;
+  font-size: 14px;
+}
+
+/* Ghost button — pill */
+.btn-ghost {
+  border-radius: 100px;
+}
+
+/* Proof bar — mais espaçado */
+.proof-number {
+  font-size: 40px;
+  letter-spacing: -2px;
+}
+.proof-desc {
+  font-size: 12px;
+  letter-spacing: 1.2px;
+}
+
+/* About — foto maior */
+.about-photo {
+  width: 260px;
+  height: 260px;
+  border-radius: 20px;
+}
+.about-inner {
+  gap: 72px;
+  align-items: center;
+}
+
+/* FAQ items — mais espaçados */
+.faq-q {
+  padding: 22px 0;
+  font-size: 16px;
+}
+.faq-a {
+  padding-bottom: 22px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* Transição geral — Apple usa 0.3s */
+* { transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ── Responsivo mobile — mantém respiro mas reduz ── */
+@media (max-width: 960px) {
+  section { padding: 100px 24px; }
+  .cta-box { padding: 56px 32px; }
+  .why-card { padding: 36px 28px; }
+  .include-item { padding: 32px 24px; }
+  .about-photo { width: 200px; height: 200px; }
+  .about-inner { gap: 40px; }
+}
+
+@media (max-width: 640px) {
+  section { padding: 80px 20px; }
+  .cta-box { padding: 44px 24px; border-radius: 16px; }
+  .feedback-card { padding: 24px; }
+  .btn-xl { padding: 16px 32px; border-radius: 100px; }
+  .pain-item { padding: 28px 22px; }
+  .why-card { padding: 32px 24px; }
+  .include-item { padding: 28px 20px; }
+  .about-photo { width: 160px; height: 160px; }
+  .proof-number { font-size: 32px; }
+  h1 { letter-spacing: -1.8px; }
+  h2 { letter-spacing: -1.4px; margin-bottom: 20px; }
+}
+
 /* ─── SCREENSHOT PREVIEW ─── */
 .screenshot-frame {
   width: 100%;
